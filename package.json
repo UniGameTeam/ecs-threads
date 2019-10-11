@@ -17,5 +17,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/Leopotam/ecs-threads.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.leopotam.com"
     }
 }
