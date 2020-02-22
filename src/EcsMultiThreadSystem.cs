@@ -29,7 +29,7 @@ namespace Unity.IL2CPP.CompilerServices {
 
 namespace Leopotam.Ecs.Threads {
     /// <summary>
-    /// Base system for multithreading processing. In WebGL - will work like IEcsRunSystem system.
+    /// Base system for multi-threading processing. In WebGL - will work like IEcsRunSystem system.
     /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
@@ -134,7 +134,9 @@ namespace Leopotam.Ecs.Threads {
                     desc.Worker (desc);
                     desc.WorkDone.Set ();
                 }
-            } catch { }
+            } catch {
+                // ignored
+            }
         }
         /// <summary>
         /// Source filter for processing entities from it.
