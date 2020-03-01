@@ -27,17 +27,17 @@ If you can't / don't want to use unity modules, code can be downloaded as source
 ## EcsMultiThreadSystem
 Multithreaded entities processing system, like "jobs" at unity engine, but not dependent on any engine.
 ```csharp
-sealed class ThreadComponent {
-    public float A = 1;
-    public float B = 2;
-    public float C = 3;
-    public float D = 4;
-    public float E = 5;
-    public float F = 6;
-    public float G = 7;
-    public float H = 8;
-    public float I = 9;
-    public float J = 10;
+struct ThreadComponent {
+    public float A;
+    public float B;
+    public float C;
+    public float D;
+    public float E;
+    public float F;
+    public float G;
+    public float H;
+    public float I;
+    public float J;
     public float Result;
 }
 [EcsInject]
@@ -79,7 +79,7 @@ sealed class ThreadTestSystem : EcsMultiThreadSystem<EcsFilter<ThreadComponent>>
     /// </summary>
 static void Worker (EcsMultiThreadWorkerDesc workerDesc) {
     foreach (var idx in workerDesc) {
-        var c = workerDesc.Filter.Components1[idx];
+        ref var c = ref workerDesc.Filter.Get1(idx);
         c.Result = (float) System.Math.Sqrt (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
         c.Result = (float) System.Math.Sin (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
         c.Result = (float) System.Math.Cos (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
