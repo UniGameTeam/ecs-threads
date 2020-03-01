@@ -75,7 +75,7 @@ sealed class ThreadTestSystem : EcsMultiThreadSystem<EcsFilter<ThreadComponent>>
     /// </summary>
 static void Worker (EcsMultiThreadWorkerDesc workerDesc) {
     foreach (var idx in workerDesc) {
-        var c = workerDesc.Filter.Components1[idx];
+        var c = workerDesc.Filter.Get1[idx];
         c.Result = (float) System.Math.Sqrt (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
         c.Result = (float) System.Math.Sin (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
         c.Result = (float) System.Math.Cos (c.A + c.B + c.C + c.D + c.E + c.F + c.G + c.H + c.I + c.J);
