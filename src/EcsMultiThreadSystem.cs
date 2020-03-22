@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -68,7 +67,7 @@ namespace Leopotam.Ecs.Threads {
                 desc.Thread = new Thread (ThreadProc);
                 desc.Thread.IsBackground = true;
 #if DEBUG
-                desc.Thread.Name = string.Format ("ECS-{0:X}-{1}", this.GetHashCode (), i);
+                desc.Thread.Name = string.Format ("ECS-{0:X}-{1}", GetHashCode (), i);
 #endif
                 desc.HasWork = new ManualResetEvent (false);
                 desc.WorkDone = new ManualResetEvent (true);
@@ -138,6 +137,7 @@ namespace Leopotam.Ecs.Threads {
                 // ignored
             }
         }
+
         /// <summary>
         /// Source filter for processing entities from it.
         /// </summary>
@@ -178,7 +178,7 @@ namespace Leopotam.Ecs.Threads {
                 return new Enumerator (IndexFrom, IndexTo);
             }
 
-            public struct Enumerator : IEnumerator<int> {
+            public struct Enumerator {
                 readonly int _count;
                 int _idx;
 
@@ -190,22 +190,12 @@ namespace Leopotam.Ecs.Threads {
 
                 public int Current {
                     [MethodImpl (MethodImplOptions.AggressiveInlining)]
-                    get { return _idx; }
+                    get => _idx;
                 }
-
-                object System.Collections.IEnumerator.Current { get { return null; } }
-
-                [MethodImpl (MethodImplOptions.AggressiveInlining)]
-                public void Dispose () { }
 
                 [MethodImpl (MethodImplOptions.AggressiveInlining)]
                 public bool MoveNext () {
                     return ++_idx < _count;
-                }
-
-                [MethodImpl (MethodImplOptions.AggressiveInlining)]
-                public void Reset () {
-                    _idx = -1;
                 }
             }
         }
